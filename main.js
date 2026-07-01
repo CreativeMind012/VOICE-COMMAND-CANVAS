@@ -10,6 +10,7 @@ draw_apple = "";
 
 var SpeechRecognition = window.webkitSpeechRecognition;
 var recognition = new SpeechRecognition();
+var isListening = false;
 
 function preload() {
   apple = loadImage("apple.png");
@@ -17,10 +18,13 @@ function preload() {
 
 function start()
 {
+  if(isListening) return;
+  isListening = true;
   document.getElementById("status").innerHTML = "System is listening please speak";  // error
   recognition.start();
 } 
- 
+
+isListening = false;
 recognition.onresult = function(event) {
     console.log(event);
     content = event.results[0][0].transcript;
